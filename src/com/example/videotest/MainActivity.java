@@ -6,9 +6,11 @@ import java.io.IOException;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.media.CamcorderProfile;
+import android.media.CameraProfile;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore.Audio.Media;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
@@ -50,9 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
             }
 
             @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                                       int height) {
-
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             }
         });
         startButton = (Button) findViewById(R.id.start);
@@ -79,13 +79,10 @@ public class MainActivity extends Activity implements OnClickListener {
         mCamera.startPreview();
     }
 
-    public static void setCameraDisplayOrientation(Activity activity,
-                                                   int cameraId, android.hardware.Camera camera) {
-        android.hardware.Camera.CameraInfo info =
-                new android.hardware.Camera.CameraInfo();
-        android.hardware.Camera.getCameraInfo(cameraId, info);
-        int rotation = activity.getWindowManager().getDefaultDisplay()
-                .getRotation();
+    public static void setCameraDisplayOrientation(Activity activity, int cameraId, Camera camera) {
+        CameraInfo info = new CameraInfo();
+        Camera.getCameraInfo(cameraId, info);
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int degrees = 0;
         switch (rotation) {
             case Surface.ROTATION_0:
@@ -101,9 +98,8 @@ public class MainActivity extends Activity implements OnClickListener {
                 degrees = 270;
                 break;
         }
-
         int result;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360;
             result = (360 - result) % 360;  // compensate the mirror
         } else {  // back-facing
@@ -123,7 +119,6 @@ public class MainActivity extends Activity implements OnClickListener {
         int id = view.getId();
         switch (id) {
             case R.id.start:
-
                 if (mIsRecording == false) {
                     startmediaRecorder();
                 } else {
@@ -177,11 +172,7 @@ public class MainActivity extends Activity implements OnClickListener {
         CamcorderProfile mCamcorderProfile = CamcorderProfile.get(CameraInfo.CAMERA_FACING_BACK, CamcorderProfile.QUALITY_LOW);
         mediaRecorder.setProfile(mCamcorderProfile);
         try {
-            File outf = File.createTempFile("tts", ".3gp", Environment.getExternalStorageDirectory());
-        } catch (IOException e) {
-            return;
-        }
-        try {
+            outf = File.createTempFile("tts", ".3gp", Environment.getExternalStorageDirectory());
             mediaRecorder.setOutputFile(outf.getCanonicalPath());
         } catch (IOException e) {
             return;
@@ -190,18 +181,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
         try {
             mediaRecorder.prepare();
-
 //			mediaRecorder.set
         } catch (Exception e) {
-
             mIsRecording = false;
             Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
             mCamera.lock();
         }
         mediaRecorder.start();
-
-
     }
 
     private String getName() {

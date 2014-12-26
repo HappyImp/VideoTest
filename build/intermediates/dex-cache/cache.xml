@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Users\ivandgetic\Documents\GitHub\VideoTest\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="307c1cc532eabbf1d135b43e5c983c9da700449d">
+        <dex dex="D:\Users\ivandgetic\Documents\GitHub\VideoTest\build\intermediates\pre-dexed\debug\android-support-v4-fee4ac0bbfa73817f25ff5640cc070988fd9757f.jar" />
+    </item>
+
+</items>

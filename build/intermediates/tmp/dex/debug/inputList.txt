@@ -1,0 +1,2 @@
+D:\Users\ivandgetic\Documents\GitHub\VideoTest\build\intermediates\classes\debug
+D:\Users\ivandgetic\Documents\GitHub\VideoTest\build\intermediates\pre-dexed\debug\android-support-v4-fee4ac0bbfa73817f25ff5640cc070988fd9757f.jar
